@@ -10,11 +10,8 @@ const app = createKoaServer({
 })
 
 setupDb()
-    .then(_ =>
-        app.listen(port, () => console.log(`Listening on port ${port}`))   
-    )
-    .catch(err => console.error(err))
-
-const codaisseur: string = 'Welcome Bram! Shall we play a little game?'
-console.log(codaisseur)
+  .then(_ =>
+    app.listen(4000, () => console.log('Listening on port 4000'))
+  )
+  .catch(err => console.error(err))
 
