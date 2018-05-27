@@ -27,9 +27,7 @@ export default () =>
   createConnection({
       type: "postgres",
       url: process.env.DATABASE_URL || 'postgres://postgres:secret@localhost:5432/postgres',
-      entities: [
-          Game
-        ],
+      entities: [Game],
       synchronize: true,
       logging: true,
       namingStrategy: new CustomNamingStrategy()
