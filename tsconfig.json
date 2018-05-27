@@ -4,6 +4,7 @@
       "allowJs": true,
       "module": "commonjs",
       "moduleResolution": "node",
+      "noImplicitAny": false,
       "noImplicitThis": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
@@ -17,8 +18,7 @@
          "node_modules/@types",
          "@typesCustom"
       ],
-      "noImplicitAny": true,
-      "outDir": "dist/",
+      "outDir": "target/",
       "rootDir": "src/"
     },
     "include": [
@@ -31,5 +31,6 @@
     "typeRoots": [
       "@typesCustom",
       "node_modules/@types"
-    ]
+    ],
+    "compilerOnSave": true
   }

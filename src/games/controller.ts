@@ -1,15 +1,15 @@
 import { JsonController, Get, Post, Param, Put, HttpCode, Body, BadRequestError, NotFoundError } from 'routing-controllers'
-import Game  from './entity'
+import Game from './entity'
 
 const coloursArray = ['red', 'blue', 'green', 'yellow', 'magenta']
 
-const defaultBoard = [
+export const defaultBoard = [
     ['o', 'o', 'o'],
     ['o', 'o', 'o'],
     ['o', 'o', 'o']
 ]
 
-const moves = (board1: string[][], board2: string[][]) =>
+const moves = (board1, board2) => 
   board1
     .map((row, y) => row.filter((cell, x) => board2[y][x] !== cell))
     .reduce((a, b) => a.concat(b))
@@ -20,8 +20,8 @@ export default class GameController {
 
     @Get('/games')
     async allGames() {
-        const games = await Game.find()
-        return { games }
+      const games = await Game.find()
+      return { games }
     }
 
     @Get('/games/:id')
@@ -33,12 +33,11 @@ export default class GameController {
 
     @Post('/games')
     @HttpCode(201)
-    startGame(
+    async createGame(
         @Body() game: Game
     ) {
-        game.colour = coloursArray[Math.round(Math.random() * coloursArray.length)]
-        game.board = defaultBoard
-        return Game.save(game)
+    game.colour = coloursArray[Math.floor(Math.random() * coloursArray.length)]
+    return Game.save(game)
     }
 
     @Put('/games/:id')
@@ -61,13 +60,12 @@ export default class GameController {
                 if(newName && (newName === game.name)) {
                     throw new BadRequestError("I need a new name!")
                 }
-                if(newBoard && (moves(game.board, newBoard) !== 1)) {
-                    throw new BadRequestError("You have to make one and only one move!")
-                }
                 if(newColour && !(coloursArray.includes(newColour))) {
                     throw new BadRequestError(`Invalid! You can only choose from: ${coloursArray}`)
                 } 
-
+                if(newBoard && (moves(game.board, newBoard) !== 1)) {
+                    throw new BadRequestError("You have to make one and only one move!")
+                } 
             return Game.merge(game, update).save()
         }
 
