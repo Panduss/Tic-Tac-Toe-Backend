@@ -4,6 +4,8 @@ This repo contains a backend for a tic-tac-toe boardgame. It uses Typescript and
 
 Built as a homework assignment for Codaisseur after our 5th week.
 
+IN PROGRESS ✌️
+
 # Quickstart 🚀
 
 ‼️Database is set up in postgres ‼️
